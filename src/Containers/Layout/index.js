@@ -14,7 +14,7 @@ const Layout = ({ children }) => (
     />
     <header>
       <img src={logo} className="logo" alt="logo" />
-      <h1>Welcome to React</h1>
+      <h1>Welcome to React+Redux</h1>
       <Navbar />
     </header>
     <div className="main">

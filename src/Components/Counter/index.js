@@ -9,12 +9,12 @@ class Counter extends Component {
     onDecrement: PropTypes.func.isRequired,
   }
 
-  componentDidMount() {
-    this.interval = setTimeout(this.props.onIncrement, 1000);
-  }
-
   componentWillUnmount() {
     clearInterval(this.interval);
+  }
+
+  incrementAsync = () => {
+    setTimeout(this.props.onIncrement, 1000);
   }
 
   render() {
@@ -22,10 +22,10 @@ class Counter extends Component {
 
     return (
       <div className="Counter">
+        <p style={{ fontSize: 'large' }}>To modify this component, edit <code>src/Components/Counter/index.js</code> and save to see the changes</p>
         <h4>Counter: {value}</h4>
         <button onClick={onIncrement}>+</button>
         <button onClick={onDecrement}>-</button>
-        <p style={{ fontSize: 'large' }}>To modify this component, edit <code>src/Components/Counter/index.js</code> and save to see the changes</p>
       </div>
     );
   }

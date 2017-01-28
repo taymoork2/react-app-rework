@@ -1,3 +1,4 @@
+/* eslint react/forbid-prop-types: 0, react/require-default-props: 0 */
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import Routes from '../../routes';
@@ -24,5 +25,5 @@ export default function ReduxProvider(store, history) {
 
 ReduxProvider.propTypes = {
   store: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.object.isRequired,
 };

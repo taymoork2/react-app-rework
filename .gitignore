@@ -7,7 +7,10 @@ node_modules
 coverage
 
 # production
-build
+# dist
+
+# vscode settings
+.vscode
 
 # misc
 .DS_Store

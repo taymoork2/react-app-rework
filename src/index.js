@@ -2,12 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { withAsyncComponents } from 'react-async-component';
-import { syncHistoryWithStore } from 'connected-react-router';
+import { connectRouter } from 'connected-react-router';
 import { ReduxProvider as Provider } from './Containers';
-import { store, history } from './Stores';
+import { store, history, reducer } from './Stores';
 import './index.css';
-
-syncHistoryWithStore(history, store);
 
 if (module.hot) {
   module.hot.accept('./index.js');
@@ -19,6 +17,9 @@ if (module.hot) {
     )).then(({ appWithAsyncComponents }) =>
       render(appWithAsyncComponents, document.getElementById('root')),
     );
+  });
+  module.hot.accept('./Reducers', () => {
+    store.replaceReducer(connectRouter(history)(reducer));
   });
 }
 
