@@ -1,2 +1,2 @@
-// Add all container components here for easier importing
+export ReduxProvider from './ReduxProvider';
 export Layout from './Layout';

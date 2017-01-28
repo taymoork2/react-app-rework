@@ -82,6 +82,7 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "connected-react-router": "^2.0.0-alpha.5",
     "history": "^4.5.1",
     "react": "^15.4.2",
     "react-async-component": "^0.2.2",

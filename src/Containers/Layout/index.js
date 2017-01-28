@@ -10,7 +10,7 @@ const Layout = ({ children }) => (
   <div className="App">
     <Helmet
       title=""
-      titleTemplate="React App | %s"
+      titleTemplate="React+Router+Redux | %s"
     />
     <header>
       <img src={logo} className="logo" alt="logo" />
@@ -23,7 +23,8 @@ const Layout = ({ children }) => (
   </div>
 );
 
-// Typechecking (Proptypes) is required
+// It is disabled on this file because object is the correct type
+// ESlint format says otherwise (but even they say it's not a hard rule to follow)
 Layout.propTypes = {
   children: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
 };
