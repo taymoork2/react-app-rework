@@ -5,29 +5,26 @@ import { withAsyncComponents } from 'react-async-component';
 import Routes from './routes';
 import './index.css';
 
-let app = (
+withAsyncComponents((
   <AppContainer>
     <Routes />
   </AppContainer>
+)).then(({ appWithAsyncComponents }) =>
+  render(appWithAsyncComponents, document.getElementById('root')),
 );
 
 if (module.hot) {
   module.hot.accept('./index.js');
   module.hot.accept('./routes', () => {
-    // If you use Webpack 2 in ES modules mode, you can
-    // use <Routes /> here rather than require() a <HotRoutes />.
-    const HotRoutes = require('./routes').default; // eslint-disable-line global-require
-    app = (
+    withAsyncComponents((
       <AppContainer>
-        <HotRoutes />
+        <Routes />
       </AppContainer>
+    )).then(({ appWithAsyncComponents }) =>
+      render(appWithAsyncComponents, document.getElementById('root')),
     );
   });
 }
-
-withAsyncComponents(app).then(({ appWithAsyncComponents }) =>
-  render(appWithAsyncComponents, document.getElementById('root')),
-);
 
 /*
 import React from 'react';

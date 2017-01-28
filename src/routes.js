@@ -1,11 +1,39 @@
-import React, { Component, PropTypes } from 'react';
+/* eslint-disable react/no-multi-comp */
+
+import React, { PropTypes } from 'react';
 import { BrowserRouter, HashRouter, Match, Miss, Redirect } from 'react-router'; // eslint-disable-line no-unused-vars
 import { RoutesProvider, MatchWithRoutes } from 'react-router-addons-routes';
 import Helmet from 'react-helmet';
 import { createAsyncComponent } from 'react-async-component';
 import { Layout } from './Containers';
+// import { App, Counter } from './Components';
 
-class Routes extends Component {
+/* function asyncComponent(getComponent) {
+  return class AsyncComponent extends React.Component {
+    static Component = null;
+    state = { Component: AsyncComponent.Component };
+
+    componentWillMount() {
+      if (!this.state.Component) {
+        getComponent().then((Component) => {
+          AsyncComponent.Component = Component;
+          this.setState({ Component });
+        });
+      }
+    }
+
+    render() {
+      const { Component } = this.state;
+
+      if (Component) {
+        return <Component {...this.props} />;
+      }
+      return null;
+    }
+  };
+}*/
+
+class Routes extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,17 +42,23 @@ class Routes extends Component {
           title: 'App',
           pattern: `${process.env.PUBLIC_URL}/`,
           exactly: true,
+          /* component: App,*/
+          /* component: asyncComponent(() => {
+            import('./Components/App').then(module => module.default)
+          }), */
           component: createAsyncComponent({
             resolve: () => import('./Components/App'),
-            defer: true, // browser-only
           }),
         },
         {
           title: 'Counter',
           pattern: `${process.env.PUBLIC_URL}/counter`,
+          /* component: Counter,*/
+          /* component: asyncComponent(() => {
+            import('./Components/Counter').then(module => module.default)
+          }), */
           component: createAsyncComponent({
             resolve: () => import('./Components/Counter'),
-            defer: true, // browser-only
           }),
         },
       ],

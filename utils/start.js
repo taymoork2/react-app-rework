@@ -79,7 +79,7 @@ function setupCompiler(host, port, protocol) {
     // them in a readable focused way.
     var messages = formatWebpackMessages(stats.toJson({}, true));
     var isSuccessful = !messages.errors.length && !messages.warnings.length;
-    var showInstructions = isSuccessful && (isInteractive || isFirstCompile);
+    var showInstructions = isSuccessful && (isInteractive || isFirstCompile !== false);
 
     if (isSuccessful) {
       console.log(chalk.green('Compiled successfully!'));
