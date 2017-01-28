@@ -2,7 +2,7 @@
   "name": "react-app-rework",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://taymoork2.github.com/react-app-rework",
+  "homepage": "https://taymoork2.github.io/react-app-rework",
   "keywords": [
     "react",
     "reactjs",
@@ -17,7 +17,6 @@
     "Facebook Incubator (github.com/facebookincubator)",
     "Taymoor Khan (@taymoork2)"
   ],
-  "homepage": "https://taymoork2.github.io/react-app-rework",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/taymoork2/react-app-rework/issues"
@@ -89,8 +88,14 @@
     "react-dom": "^15.4.2",
     "react-helmet": "^4.0.0",
     "react-hot-loader": "next",
+    "react-redux": "^5.0.2",
     "react-router": "next",
-    "react-router-addons-routes": "^0.0.3"
+    "react-router-addons-routes": "^0.0.3",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.3.2",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.2.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "start": "node utils/start.js",
