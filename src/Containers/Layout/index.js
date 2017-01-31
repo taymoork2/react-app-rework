@@ -25,7 +25,7 @@ const Layout = ({ children }) => (
 
 // Typechecking (Proptypes) is required
 Layout.propTypes = {
-  children: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  children: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default Layout;

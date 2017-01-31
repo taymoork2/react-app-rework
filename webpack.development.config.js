@@ -19,7 +19,7 @@ module.exports = {
       require.resolve('./utils/polyfills'),
       paths.appIndexJs
     ],
-    vendor: ['react', 'react-dom', 'react-hot-loader', 'react-async-component', 'react-helmet', 'react-router', 'history', 'react-router-addons-routes']
+    vendor: ['react', 'react-dom', 'react-hot-loader', 'react-async-component', 'react-helmet', 'react-router', 'react-router-dom', 'history']
   },
   output: {
     path: paths.appBuild,
