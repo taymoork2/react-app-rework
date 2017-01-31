@@ -8,7 +8,7 @@ import { store, history, reducer } from './Stores';
 import './index.css';
 
 withAsyncComponents((
-  <AppContainer key={Math.random()}>
+  <AppContainer>
     <Provider store={store} history={history} />
   </AppContainer>
 )).then(({ appWithAsyncComponents }) =>
@@ -19,7 +19,7 @@ if (module.hot) {
   module.hot.accept('./index.js');
   module.hot.accept('./routes', () => {
     withAsyncComponents((
-      <AppContainer key={Math.random()}>
+      <AppContainer>
         <Provider store={store} history={history} />
       </AppContainer>
     )).then(({ appWithAsyncComponents }) =>
@@ -30,21 +30,3 @@ if (module.hot) {
     store.replaceReducer(connectRouter(history)(reducer));
   });
 }
-
-/*
-ReactDOM.render((
-  <AppContainer key={Math.random()}>
-    <Provider store={store} history={history} />
-  </AppContainer>
-), document.getElementById('root'));
-
-if (module.hot) {
-  module.hot.accept('./Containers/ReduxProvider', () => {
-    ReactDOM.render((
-      <AppContainer key={Math.random()}>
-        <Provider store={store} history={history} />
-      </AppContainer>
-    ), document.getElementById('root'));
-  });
-}
-*/

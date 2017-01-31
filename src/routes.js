@@ -1,14 +1,11 @@
-/* eslint-disable react/no-multi-comp */
-
 import React, { PropTypes } from 'react';
-import { Route, Miss, Redirect } from 'react-router-dom';
-import { ConnectedRouter as Router } from 'connected-react-router';
 import Helmet from 'react-helmet';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'connected-react-router';
 import { createAsyncComponent } from 'react-async-component';
 import { Layout } from './Containers';
-// import { App, Counter } from './Components';
 
-class Routes extends React.Component {
+export default class Routes extends React.Component {
   static propTypes = {
     history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   };
@@ -38,35 +35,32 @@ class Routes extends React.Component {
 
   render() {
     const routes = this.state.routes;
+    const history = this.props.history;
 
     return (
-      <Router history={this.props.history}>
+      <Router history={history}>
         <Layout>
-          {routes.map(route => <RouteWithSubRoutes key={Math.random()} {...route} />)}
-          <Miss component={() => <Redirect to="/" />} />
+          <Switch>
+            {routes.map(route => <Match key={Math.random()} {...route} />)}
+            <Route path="*" component={() => <Redirect to="/" />} />
+          </Switch>
         </Layout>
       </Router>
     );
   }
 }
 
-const RouteWithSubRoutes = route => (
-  <Route
-    path={route.path}
-    exact={route.exact ? 'exact' : ''}
-    render={props => (
-      <route.component {...props} routes={route.routes}>
-        <Helmet title={route.title} />
-      </route.component>
-    )}
-  />
+const Match = route => (
+  <div>
+    <Helmet title={route.title} />
+    <Route
+      path={route.path}
+      exact={route.exact}
+      render={props => (
+        <route.component {...props} routes={route.routes}>
+          <Helmet title={route.title} />
+        </route.component>
+      )}
+    />
+  </div>
 );
-
-// Typechecking (Proptypes) is required for all Comoponents that have props
-// It is disabled on this file because object is the correct type
-// ESlint format says otherwise (but even they say it's not a hard rule to follow)
-Route.propTypes = {
-  route: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-};
-
-export default Routes;

@@ -10,27 +10,21 @@ export const reducer = combineReducers({
   ...reducers,
 });
 
-export const store = () => {
-  if (process.env.NODE_ENV !== 'production') {
-    return createStore(
-      connectRouter(history)(reducer),
-      compose(
-        applyMiddleware(
-          thunk,
-          routerMiddleware(history),
-        ),
-        DevTools.instrument(),
-      ),
-    );
-  }
-
-  return createStore(
-    connectRouter(history)(reducer),
-    compose(
-      applyMiddleware(
-        thunk,
-        routerMiddleware(history),
-      ),
+export const store = process.env.NODE_ENV !== 'production' ? createStore(
+  connectRouter(history)(reducer),
+  compose(
+    applyMiddleware(
+      thunk,
+      routerMiddleware(history),
     ),
-  );
-};
+    DevTools.instrument(),
+  ),
+) : createStore(
+  connectRouter(history)(reducer),
+  compose(
+    applyMiddleware(
+      thunk,
+      routerMiddleware(history),
+    ),
+  ),
+);

@@ -5415,14 +5415,14 @@ react-redux@^5.0.2:
     lodash-es "^4.2.0"
     loose-envify "^1.1.0"
 
-react-router-dom@next:
+react-router-dom@4.0.0-beta.3:
   version "4.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.0.0-beta.3.tgz#3b7e98d8b9e03d61acab0fcccaabc1cf1723ce5f"
   dependencies:
     history "^4.5.1"
     react-router "^4.0.0-beta.3"
 
-react-router@^4.0.0-beta, react-router@^4.0.0-beta.3, react-router@next:
+react-router@4.0.0-beta.3, react-router@^4.0.0-beta, react-router@^4.0.0-beta.3:
   version "4.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.0.0-beta.3.tgz#3deee9063401b7205f8d9cfe718787f699886975"
   dependencies:

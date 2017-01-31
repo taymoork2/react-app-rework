@@ -26,7 +26,7 @@ const Layout = ({ children }) => (
 // It is disabled on this file because object is the correct type
 // ESlint format says otherwise (but even they say it's not a hard rule to follow)
 Layout.propTypes = {
-  children: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+  children: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 export default Layout;
