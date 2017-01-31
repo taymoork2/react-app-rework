@@ -1,38 +1,12 @@
 /* eslint-disable react/no-multi-comp */
 
 import React, { PropTypes } from 'react';
-import { BrowserRouter, HashRouter, Match, Miss, Redirect } from 'react-router'; // eslint-disable-line no-unused-vars
-import { ConnectedRouter } from 'connected-react-router';
-import { RoutesProvider, MatchWithRoutes } from 'react-router-addons-routes';
+import { Route, Miss, Redirect } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'connected-react-router';
 import Helmet from 'react-helmet';
 import { createAsyncComponent } from 'react-async-component';
 import { Layout } from './Containers';
 // import { App, Counter } from './Components';
-
-/* function asyncComponent(getComponent) {
-  return class AsyncComponent extends React.Component {
-    static Component = null;
-    state = { Component: AsyncComponent.Component };
-
-    componentWillMount() {
-      if (!this.state.Component) {
-        getComponent().then((Component) => {
-          AsyncComponent.Component = Component;
-          this.setState({ Component });
-        });
-      }
-    }
-
-    render() {
-      const { Component } = this.state;
-
-      if (Component) {
-        return <Component {...this.props} />;
-      }
-      return null;
-    }
-  };
-}*/
 
 class Routes extends React.Component {
   static propTypes = {
@@ -45,23 +19,15 @@ class Routes extends React.Component {
       routes: [
         {
           title: 'App',
-          pattern: `${process.env.PUBLIC_URL}/`,
-          exactly: true,
-          /* component: App,*/
-          /* component: asyncComponent(() => {
-            import('./Components/App').then(module => module.default)
-          }), */
+          path: `${process.env.PUBLIC_URL}/`,
+          exact: true,
           component: createAsyncComponent({
             resolve: () => import('./Components/App'),
           }),
         },
         {
           title: 'Counter',
-          pattern: `${process.env.PUBLIC_URL}/counter`,
-          /* component: Counter,*/
-          /* component: asyncComponent(() => {
-            import('./Components/Counter').then(module => module.default)
-          }), */
+          path: `${process.env.PUBLIC_URL}/counter`,
           component: createAsyncComponent({
             resolve: () => import('./Components/Counter'),
           }),
@@ -74,23 +40,26 @@ class Routes extends React.Component {
     const routes = this.state.routes;
 
     return (
-      <ConnectedRouter history={this.props.history}>
-        <RoutesProvider routes={routes}>
-          <Layout>
-            {routes.map(route => <Route key={Math.random()} route={route} />)}
-            <Miss component={() => <Redirect to="/" />} />
-          </Layout>
-        </RoutesProvider>
-      </ConnectedRouter>
+      <Router history={this.props.history}>
+        <Layout>
+          {routes.map(route => <RouteWithSubRoutes key={Math.random()} {...route} />)}
+          <Miss component={() => <Redirect to="/" />} />
+        </Layout>
+      </Router>
     );
   }
 }
 
-const Route = ({ route }) => (
-  <span>
-    <Match {...route} render={() => <Helmet title={route.title} />} />
-    <MatchWithRoutes {...route} />
-  </span>
+const RouteWithSubRoutes = route => (
+  <Route
+    path={route.path}
+    exact={route.exact ? 'exact' : ''}
+    render={props => (
+      <route.component {...props} routes={route.routes}>
+        <Helmet title={route.title} />
+      </route.component>
+    )}
+  />
 );
 
 // Typechecking (Proptypes) is required for all Comoponents that have props

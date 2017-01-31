@@ -7,6 +7,14 @@ import { ReduxProvider as Provider } from './Containers';
 import { store, history, reducer } from './Stores';
 import './index.css';
 
+withAsyncComponents((
+  <AppContainer key={Math.random()}>
+    <Provider store={store} history={history} />
+  </AppContainer>
+)).then(({ appWithAsyncComponents }) =>
+  render(appWithAsyncComponents, document.getElementById('root')),
+);
+
 if (module.hot) {
   module.hot.accept('./index.js');
   module.hot.accept('./routes', () => {
@@ -22,14 +30,6 @@ if (module.hot) {
     store.replaceReducer(connectRouter(history)(reducer));
   });
 }
-
-withAsyncComponents((
-  <AppContainer key={Math.random()}>
-    <Provider store={store} history={history} />
-  </AppContainer>
-)).then(({ appWithAsyncComponents }) =>
-  render(appWithAsyncComponents, document.getElementById('root')),
-);
 
 /*
 ReactDOM.render((
