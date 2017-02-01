@@ -4,6 +4,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var ManifestPlugin = require('webpack-manifest-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
+var SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
 var url = require('url');
 var paths = require('./utils/paths');
 var getClientEnvironment = require('./utils/env');
@@ -37,7 +39,7 @@ module.exports = {
       require.resolve('./utils/polyfills'),
       paths.appIndexJs
     ],
-    vendor: ['react', 'react-dom', 'react-helmet', 'react-router', 'react-router-dom', 'history']
+    vendor: ['react', 'react-dom', 'react-helmet', 'react-router', 'react-router-dom', 'history', 'redux-persist', 'cross-storage', 'lodash', 'localforge', 'immutable']
   },
   output: {
     path: paths.appBuild,
@@ -156,13 +158,17 @@ module.exports = {
       disable: false,
       allChunks: true
     }),
-    new ManifestPlugin({
-      fileName: 'asset-manifest.json'
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'manifest'],
       filename: 'assets/js/[name].[hash:8].js',
       minChunks: Infinity
+    }),
+    new SubresourceIntegrityPlugin({ // I'm getting integrity errors on my end
+      hashFuncNames: ['sha256', 'sha384']
+    }),
+    new ResourceHintWebpackPlugin(),
+    new ManifestPlugin({
+      fileName: 'asset-manifest.json'
     })
   ],
   node: {

@@ -2,6 +2,7 @@ var autoprefixer = require('autoprefixer');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+var FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./utils/env');
@@ -19,7 +20,7 @@ module.exports = {
       require.resolve('./utils/polyfills'),
       paths.appIndexJs
     ],
-    vendor: ['react', 'react-dom', 'react-hot-loader', 'react-async-component', 'react-helmet', 'react-router', 'react-router-dom', 'history']
+    vendor: ['react', 'react-dom', 'react-hot-loader', 'react-async-component', 'react-helmet', 'react-router', 'react-router-dom', 'history', 'redux-persist', 'cross-storage', 'lodash', 'localforage', 'immutable']
   },
   output: {
     path: paths.appBuild,
@@ -116,6 +117,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),
+    new FlowStatusWebpackPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'manifest'],
       filename: 'assets/js/[name].js',
