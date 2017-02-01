@@ -252,6 +252,7 @@ function runDevServer(host, port, protocol) {
       return console.log(err);
     }
 
+    console.log();
     console.log(chalk.cyan('Starting the development server...'));
     console.log();
 

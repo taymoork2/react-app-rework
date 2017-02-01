@@ -39,12 +39,13 @@ module.exports = {
       require.resolve('./utils/polyfills'),
       paths.appIndexJs
     ],
-    vendor: ['react', 'react-dom', 'react-helmet', 'react-router', 'react-router-dom', 'history', 'redux-persist', 'cross-storage', 'lodash', 'localforge', 'immutable']
+    vendor: ['react', 'react-dom', 'react-helmet', 'react-router', 'react-router-dom', 'history', 'redux-persist', 'cross-storage', 'lodash', 'localforage', 'immutable']
   },
   output: {
     path: paths.appBuild,
     filename: 'assets/js/[name].[hash:8].js',
-    publicPath: publicPath
+    publicPath: publicPath,
+    crossOriginLoading: 'anonymous'
   },
   resolve: {
     modules: ['node_modules'].concat(paths.nodePaths),
@@ -164,7 +165,8 @@ module.exports = {
       minChunks: Infinity
     }),
     new SubresourceIntegrityPlugin({ // I'm getting integrity errors on my end
-      hashFuncNames: ['sha256', 'sha384']
+      hashFuncNames: ['sha256', 'sha384'],
+      enabled: false
     }),
     new ResourceHintWebpackPlugin(),
     new ManifestPlugin({

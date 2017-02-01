@@ -6,10 +6,10 @@ export const decrement = () => ({
   type: 'DECREMENT',
 });
 
-export const incrementAsync = (delay = 1000) => (dispatch) => {
+export const incrementAsync = (dispatch) => {
   setTimeout(() => {
     dispatch(increment());
-  }, delay);
+  }, 1000);
 };
 
 export const reset = () => ({

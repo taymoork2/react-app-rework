@@ -255,12 +255,23 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
-autoprefixer@^6.3.1, autoprefixer@^6.7.1:
+autoprefixer@^6.3.1:
   version "6.7.1"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.7.1.tgz#d14d0842f6ef90741cfb2b1e8152a04e83b39ed2"
   dependencies:
     browserslist "^1.7.1"
     caniuse-db "^1.0.30000617"
+    normalize-range "^0.1.2"
+    num2fraction "^1.2.2"
+    postcss "^5.2.11"
+    postcss-value-parser "^3.2.3"
+
+autoprefixer@^6.7.2:
+  version "6.7.2"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.7.2.tgz#172ab07b998ae9b957530928a59a40be54a45023"
+  dependencies:
+    browserslist "^1.7.1"
+    caniuse-db "^1.0.30000618"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
     postcss "^5.2.11"
@@ -1520,6 +1531,10 @@ caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000617:
   version "1.0.30000617"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000617.tgz#9b7fd81f58a35526315c83e60cb5f076f0beb392"
 
+caniuse-db@^1.0.30000618:
+  version "1.0.30000618"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000618.tgz#821258ff484f662864f28ffbcf849a6247acf1fa"
+
 cardinal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/cardinal/-/cardinal-1.0.0.tgz#50e21c1b0aa37729f9377def196b5a9cec932ee9"
@@ -1806,11 +1821,11 @@ connect@3.5.0:
     parseurl "~1.3.1"
     utils-merge "1.0.0"
 
-connected-react-router@^4.0.0-beta.1:
-  version "4.0.0-beta.1"
-  resolved "https://registry.yarnpkg.com/connected-react-router/-/connected-react-router-4.0.0-beta.1.tgz#bd7706a457514afff37e942326b0771c7144d7bd"
+connected-react-router@^4.0.0-beta.2:
+  version "4.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/connected-react-router/-/connected-react-router-4.0.0-beta.2.tgz#115e894c1c664fdc4ca0cb5a8826146b7142389d"
   dependencies:
-    react-router "^4.0.0-beta"
+    react-router "^4.0.0-beta.3"
 
 console-browserify@^1.1.0:
   version "1.1.0"
@@ -5506,7 +5521,7 @@ react-router-dom@4.0.0-beta.3:
     history "^4.5.1"
     react-router "^4.0.0-beta.3"
 
-react-router@4.0.0-beta.3, react-router@^4.0.0-beta, react-router@^4.0.0-beta.3:
+react-router@4.0.0-beta.3, react-router@^4.0.0-beta.3:
   version "4.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.0.0-beta.3.tgz#3deee9063401b7205f8d9cfe718787f699886975"
   dependencies:

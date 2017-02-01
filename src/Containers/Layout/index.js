@@ -10,7 +10,7 @@ const Layout = ({ children }) => (
   <div className="App">
     <Helmet
       title=""
-      titleTemplate="React+Router+Redux | %s"
+      titleTemplate="Redux App | %s"
     />
     <header>
       <img src={logo} className="logo" alt="logo" />
