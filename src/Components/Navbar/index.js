@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { routes } from '../../routes';
 import './assets/Navbar.css';
 
 const Navbar = () => (
   <nav>
     <ul>
-      <li><NavLink to={`${process.env.PUBLIC_URL}/`} activeStyle={{ textDecoration: 'underline' }}><b>Get Started</b></NavLink></li>
-      <li><NavLink to={`${process.env.PUBLIC_URL}/counter`} activeStyle={{ textDecoration: 'underline' }}><b>Counter Example</b></NavLink></li>
+      {routes.filter(route => route.navBarTitle).map(route => <li><NavLink to={route.path} exact={route.exact} activeStyle={{ textDecoration: 'underline' }}><b>{route.navBarTitle}</b></NavLink></li>)}
     </ul>
   </nav>
 );
