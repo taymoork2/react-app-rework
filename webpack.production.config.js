@@ -39,7 +39,7 @@ module.exports = {
       require.resolve('./utils/polyfills'),
       paths.appIndexJs
     ],
-    vendor: ['react', 'react-dom', 'react-helmet', 'react-router', 'react-router-dom', 'history', 'redux-persist', 'cross-storage', 'lodash', 'localforage', 'immutable']
+    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-async-component', 'react-helmet', 'react-router', 'react-router-dom', 'connected-react-router', 'history', 'redux-thunk', 'redux-persist', 'cross-storage', 'lodash', 'localforage', 'immutable', 'axios']
   },
   output: {
     path: paths.appBuild,
