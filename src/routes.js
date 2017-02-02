@@ -5,50 +5,25 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 import { createAsyncComponent } from 'react-async-component';
 import { Layout } from './Containers';
 
-export default class Routes extends React.Component {
-  static propTypes = {
-    history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      routes: [
-        {
-          title: 'App',
-          path: `${process.env.PUBLIC_URL}/`,
-          exact: true,
-          component: createAsyncComponent({
-            resolve: () => import('./Components/App'),
-          }),
-        },
-        {
-          title: 'Counter',
-          path: `${process.env.PUBLIC_URL}/counter`,
-          component: createAsyncComponent({
-            resolve: () => import('./Components/Counter'),
-          }),
-        },
-      ],
-    };
-  }
-
-  render() {
-    const routes = this.state.routes;
-    const history = this.props.history;
-
-    return (
-      <Router history={history}>
-        <Layout>
-          <Switch>
-            {routes.map(route => <Match key={Math.random()} {...route} />)}
-            <Route path="*" component={() => <Redirect to="/" />} />
-          </Switch>
-        </Layout>
-      </Router>
-    );
-  }
-}
+export const routes = [
+  {
+    title: 'App',
+    navBarTitle: 'Get Started',
+    path: `${process.env.PUBLIC_URL}/`,
+    exact: true,
+    component: createAsyncComponent({
+      resolve: () => import('./Components/App'),
+    }),
+  },
+  {
+    title: 'Counter',
+    navBarTitle: 'Counter Example',
+    path: `${process.env.PUBLIC_URL}/counter`,
+    component: createAsyncComponent({
+      resolve: () => import('./Components/Counter'),
+    }),
+  },
+];
 
 const Match = route => (
   <div>
@@ -64,3 +39,20 @@ const Match = route => (
     />
   </div>
 );
+
+const Routes = ({ history }) => (
+  <Router history={history}>
+    <Layout>
+      <Switch>
+        {routes.map(route => <Match key={Math.random()} {...route} />)}
+        <Route path="*" component={() => <Redirect to="/" />} />
+      </Switch>
+    </Layout>
+  </Router>
+);
+
+Routes.propTypes = {
+  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+};
+
+export default Routes;
