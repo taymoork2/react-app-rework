@@ -6,7 +6,7 @@ import './assets/Navbar.css';
 const Navbar = () => (
   <nav>
     <ul>
-      {routes.filter(route => route.navBarTitle).map(route => <li><NavLink to={route.path} exact={route.exact} activeStyle={{ textDecoration: 'underline' }}><b>{route.navBarTitle}</b></NavLink></li>)}
+      {routes.filter(route => route.navBarTitle).map(route => <li key={Math.random()}><NavLink to={route.path} exact={route.exact} activeStyle={{ textDecoration: 'underline' }}><b>{route.navBarTitle}</b></NavLink></li>)}
     </ul>
   </nav>
 );
