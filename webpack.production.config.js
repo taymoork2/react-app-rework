@@ -170,7 +170,7 @@ module.exports = {
     }),
     new ResourceHintWebpackPlugin(),
     new ManifestPlugin({
-      fileName: 'asset-manifest.json'
+      fileName: 'assets/asset-manifest.json'
     })
   ],
   node: {
