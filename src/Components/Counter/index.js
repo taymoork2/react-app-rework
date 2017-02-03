@@ -5,9 +5,14 @@ import { increment, decrement, reset, incrementAsync } from '../../Actions/count
 class Counter extends Component {
   static propTypes = {
     count: PropTypes.number.isRequired,
+    startIncrementAsync: PropTypes.func.isRequired,
     onIncrement: PropTypes.func.isRequired,
     onDecrement: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    this.interval = this.props.startIncrementAsync;
   }
 
   componentWillUnmount() {
@@ -34,11 +39,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  startIncrementAsync: () => {
-    setTimeout(() => {
-      dispatch(incrementAsync());
-    }, 1000);
-  },
+  startIncrementAsync: () => dispatch(incrementAsync()),
   onIncrement: () => dispatch(increment()),
   onDecrement: () => dispatch(decrement()),
   onReset: () => dispatch(reset()),
