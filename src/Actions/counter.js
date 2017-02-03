@@ -6,12 +6,18 @@ export const decrement = () => ({
   type: 'DECREMENT',
 });
 
-export const incrementAsync = (dispatch) => {
+export const reset = () => ({
+  type: 'RESET',
+});
+
+/* export const incrementAsync = dispatch => { // eslint-disable-line arrow-parens
   setTimeout(() => {
     dispatch(increment());
   }, 1000);
 };
 
-export const reset = () => ({
-  type: 'RESET',
-});
+export const decrementAsync = dispatch => { // eslint-disable-line arrow-parens
+  setTimeout(() => {
+    dispatch(decrement());
+  }, 1000);
+}; */
