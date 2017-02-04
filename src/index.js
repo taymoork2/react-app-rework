@@ -5,23 +5,21 @@ import { withAsyncComponents } from 'react-async-component';
 import Routes from './routes';
 import './index.css';
 
-withAsyncComponents((
-  <AppContainer>
-    <Routes />
-  </AppContainer>
-)).then(({ appWithAsyncComponents }) =>
-  render(appWithAsyncComponents, document.getElementById('root')),
-);
+const renderAsync = (Component) => {
+  withAsyncComponents((
+    <AppContainer>
+      <Component />
+    </AppContainer>
+  )).then(({ appWithAsyncComponents }) =>
+    render(appWithAsyncComponents, document.getElementById('root')),
+  );
+};
+
+renderAsync(Routes);
 
 if (module.hot) {
   module.hot.accept('./index.js');
   module.hot.accept('./routes', () => {
-    withAsyncComponents((
-      <AppContainer>
-        <Routes />
-      </AppContainer>
-    )).then(({ appWithAsyncComponents }) =>
-      render(appWithAsyncComponents, document.getElementById('root')),
-    );
+    renderAsync(Routes);
   });
 }
