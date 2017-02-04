@@ -1,25 +1,16 @@
 /* eslint react/forbid-prop-types: 0, react/require-default-props: 0 */
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
-import Routes from '../../routes';
-import { ReduxDevTools as DevTools } from '../../Components';
 
-export default function ReduxProvider({ store, history }) {
-  return process.env.NODE_ENV !== 'production' ? (
-    <Provider store={store}>
-      <div>
-        <Routes history={history} />
-        <DevTools />
-      </div>
-    </Provider>
-  ) : (
-    <Provider store={store}>
-      <Routes history={history} />
-    </Provider>
-  );
-}
+const ReduxProvider = ({ store, children }) => (
+  <Provider store={store}>
+    { children }
+  </Provider>
+);
 
 ReduxProvider.propTypes = {
   store: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 };
+
+export default ReduxProvider;

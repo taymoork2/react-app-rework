@@ -5,7 +5,6 @@ import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import * as reducers from '../Reducers';
-import { ReduxDevTools as DevTools } from '../Components';
 
 export const history = createBrowserHistory();
 export const reducer = combineReducers({
@@ -21,23 +20,21 @@ const logger = createLogger({
     return newState;
   },
 });
+const composeEnhancers = process.env.NODE_ENV !== 'production' &&
+  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? // eslint-disable-line no-underscore-dangle
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ // eslint-disable-line no-underscore-dangle
+    serialize: {
+      immutable: Immutable,
+    },
+  }) : compose;
 
-export const store = process.env.NODE_ENV !== 'production' ? createStore(
+export const store = createStore(
   connectRouter(history)(reducer),
-  compose(
+  composeEnhancers(
     applyMiddleware(
       thunk,
       routerMiddleware(history),
       logger,
-    ),
-    DevTools.instrument(),
-  ),
-) : createStore(
-  connectRouter(history)(reducer),
-  compose(
-    applyMiddleware(
-      thunk,
-      routerMiddleware(history),
     ),
   ),
 );

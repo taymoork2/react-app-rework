@@ -20,7 +20,7 @@ module.exports = {
       require.resolve('./utils/polyfills'),
       paths.appIndexJs
     ],
-    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-hot-loader', 'react-async-component', 'react-helmet', 'react-router', 'react-router-dom', 'connected-react-router', 'history', 'redux-thunk', 'redux-persist', 'redux-devtools', 'redux-devtools-dock-monitor', 'redux-devtools-log-monitor', 'cross-storage', 'lodash', 'localforage', 'immutable', 'axios']
+    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-hot-loader', 'react-async-component', 'react-helmet', 'react-router', 'react-router-dom', 'connected-react-router', 'history', 'redux-thunk', 'redux-persist']
   },
   output: {
     path: paths.appBuild,
@@ -115,6 +115,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin(env),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
     new CaseSensitivePathsPlugin(),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     new FlowStatusWebpackPlugin(),
