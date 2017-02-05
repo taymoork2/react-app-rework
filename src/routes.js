@@ -23,6 +23,13 @@ export const routes = [
       resolve: () => import('./Components/Counter'),
     }),
   },
+  {
+    navBarTitle: 'Dashboard Example',
+    path: `${process.env.PUBLIC_URL}/dashboard/:id?`,
+    component: createAsyncComponent({
+      resolve: () => import('./Containers/Dashboard'),
+    }),
+  },
 ];
 
 const Match = route => (
@@ -31,6 +38,7 @@ const Match = route => (
     <Route
       path={route.path}
       exact={route.exact}
+      strict={route.strict}
       render={props => (
         <route.component {...props} routes={route.routes}>
           <Helmet title={route.title} />
