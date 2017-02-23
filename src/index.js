@@ -8,11 +8,11 @@ import Routes from './routes';
 import { store, history, reducer } from './Stores';
 import './index.css';
 
-const renderAsync = (Component) => {
+const renderAsync = (Route) => {
   withAsyncComponents((
     <AppContainer>
       <Provider store={store}>
-        <Component history={history} />
+        <Route history={history} />
       </Provider>
     </AppContainer>
   )).then(({ appWithAsyncComponents }) =>

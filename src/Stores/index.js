@@ -10,6 +10,7 @@ export const history = createBrowserHistory();
 export const reducer = combineReducers({
   ...reducers,
 });
+
 const logger = createLogger({
   stateTransformer: (state) => {
     const newState = Object.keys(state).map((i) => {
@@ -20,6 +21,7 @@ const logger = createLogger({
     return newState;
   },
 });
+
 const composeEnhancers = process.env.NODE_ENV !== 'production' &&
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? // eslint-disable-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ // eslint-disable-line no-underscore-dangle
