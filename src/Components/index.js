@@ -1,5 +1,5 @@
 export App from './App';
-export Counter from './Counter';
+export DisplayCount from './DisplayCount';
 export Navbar from './Navbar';
 export UserDetails from './UserDetails';
 export UserList from './UserList';

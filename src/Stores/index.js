@@ -1,11 +1,13 @@
-import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
-import { routerMiddleware, connectRouter } from 'connected-react-router';
+import { applyMiddleware, createStore, compose } from 'redux';
+import { routerMiddleware, connectRouter } from 'connected-react-router/immutable';
+import { combineReducers } from 'redux-immutable';
 import { createBrowserHistory } from 'history';
 import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import * as reducers from '../Reducers';
 
+const initialState = Immutable.Map();
 export const history = createBrowserHistory();
 export const reducer = combineReducers({
   ...reducers,
@@ -32,6 +34,7 @@ const composeEnhancers = process.env.NODE_ENV !== 'production' &&
 
 export const store = createStore(
   connectRouter(history)(reducer),
+  initialState,
   composeEnhancers(
     applyMiddleware(
       thunk,

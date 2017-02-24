@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { ConnectedRouter as Router } from 'connected-react-router';
+import { ConnectedRouter as Router } from 'connected-react-router/immutable';
 import { createAsyncComponent } from 'react-async-component';
 import { Layout } from './Containers';
 
@@ -20,7 +20,7 @@ export const routes = [
     navBarTitle: 'Counter Example',
     path: `${process.env.PUBLIC_URL}/counter`,
     component: createAsyncComponent({
-      resolve: () => import('./Components/Counter'),
+      resolve: () => import('./Containers/Counter'),
     }),
   },
   {

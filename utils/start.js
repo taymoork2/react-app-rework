@@ -230,8 +230,7 @@ function runDevServer(host, port, protocol) {
       timings: false,
       chunks: false,
       chunkModules: true,
-      errors: true,
-      errorDetails: true
+      errors: true
     },
     historyApiFallback: true,
     // lazy: true
