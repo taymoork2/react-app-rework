@@ -5,6 +5,8 @@ var CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 var FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
 var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 var getClientEnvironment = require('./utils/env');
 var paths = require('./utils/paths');
 var publicPath = '/';
@@ -113,6 +115,22 @@ module.exports = {
       inject: true,
       template: paths.appHtml,
     }),
+    new BrowserSyncPlugin(
+      {
+        host: 'localhost',
+        port: 3001,
+        proxy: 'http://localhost:3000',
+        open: false
+      },
+      {
+        reload: false,
+        notify: true,
+        tunnel: true,
+        xip: true,
+        open: false
+      }
+    ),
+    new DashboardPlugin(),
     new webpack.DefinePlugin(env),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),

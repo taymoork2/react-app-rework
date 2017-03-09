@@ -10,16 +10,8 @@ export const reset = () => ({
   type: 'RESET',
 });
 
-export function incrementAsync() {
-  return dispatch => { // eslint-disable-line
-    setTimeout(() => {
-      dispatch(increment());
-    }, 1000);
-  };
-}
-
-export const decrementAsync = dispatch => { // eslint-disable-line arrow-parens
+export const incrementAsync = (delay = 1000) => (dispatch) => {
   setTimeout(() => {
-    dispatch(decrement());
-  }, 1000);
+    dispatch(increment());
+  }, delay);
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { routes } from '../../routes';
@@ -6,7 +7,7 @@ import './assets/Navbar.css';
 const Navbar = () => (
   <nav>
     <ul>
-      {routes.filter(route => route.navBarTitle).map(route => <li key={Math.random()}><NavLink to={route.path.match(/^[^:]+/)[0]} exact={route.exact} activeStyle={{ textDecoration: 'underline' }}><b>{route.navBarTitle}</b></NavLink></li>)}
+      {routes.filter(route => route.navBarTitle).map((route, i) => <li key={i}><NavLink to={route.path.match(/^[^:]+/)[0]} exact={route.exact} activeStyle={{ textDecoration: 'underline' }}><b>{route.navBarTitle}</b></NavLink></li>)}
     </ul>
   </nav>
 );

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Switch, Redirect } from 'react-router-dom';
@@ -52,7 +53,7 @@ const Routes = ({ history }) => (
   <Router history={history}>
     <Layout>
       <Switch>
-        {routes.map(route => <Match key={Math.random()} {...route} />)}
+        {routes.map((route, i) => <Match key={i} {...route} />)}
         <Route path="*" component={() => <Redirect to="/" />} />
       </Switch>
     </Layout>

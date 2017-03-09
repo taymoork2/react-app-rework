@@ -1,4 +1,23 @@
 {
-  "presets": ["env", ["latest", { "es2015": { "modules": false } }], "stage-0", "react", "react-app"],
-  "plugins": ["react-hot-loader/babel", "typecheck", "syntax-flow", "transform-flow-strip-types"]
+  "presets": [
+    "env",
+    [
+      "latest",
+      {
+        "es2015": {
+          "modules": false
+        }
+      }
+    ],
+    "stage-0",
+    "react",
+    "react-app"
+  ],
+  "plugins": [
+    "react-hot-loader/babel",
+    "typecheck",
+    "syntax-flow",
+    "syntax-dynamic-import",
+    "transform-flow-strip-types"
+  ]
 }
