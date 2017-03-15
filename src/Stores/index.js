@@ -1,18 +1,18 @@
 import { applyMiddleware, createStore, compose } from 'redux';
 import { routerMiddleware, connectRouter } from 'connected-react-router/immutable';
 import { combineReducers } from 'redux-immutable';
-import { createBrowserHistory } from 'history';
+import createHistory from 'history/createBrowserHistory';
 import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import * as reducers from '../Reducers';
 
-const initialState = Immutable.Map();
-export const history = createBrowserHistory();
+export const history = createHistory();
 export const reducer = combineReducers({
   ...reducers,
 });
-
+const initialState = Immutable.Map();
+const connectedMiddleware = routerMiddleware(history);
 const logger = createLogger({
   stateTransformer: (state) => {
     const newState = Object.keys(state).map((i) => {
@@ -23,22 +23,28 @@ const logger = createLogger({
     return newState;
   },
 });
-
-const composeEnhancers = process.env.NODE_ENV !== 'production' &&
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? // eslint-disable-line no-underscore-dangle
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ // eslint-disable-line no-underscore-dangle
-    serialize: {
-      immutable: Immutable,
-    },
-  }) : compose;
-
-export const store = createStore(
+// eslint-disable-next-line no-underscore-dangle
+const composeDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+  serialize: {
+    immutable: Immutable,
+  },
+});
+export const store = process.env.NODE_ENV === 'production' ? createStore(
   connectRouter(history)(reducer),
   initialState,
-  composeEnhancers(
+  compose(
     applyMiddleware(
       thunk,
-      routerMiddleware(history),
+      connectedMiddleware,
+    ),
+  ),
+) : createStore(
+  connectRouter(history)(reducer),
+  initialState,
+  composeDevTools(
+    applyMiddleware(
+      thunk,
+      connectedMiddleware,
       logger,
     ),
   ),

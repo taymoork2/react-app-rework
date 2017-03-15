@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { withAsyncComponents } from 'react-async-component';
 import { connectRouter } from 'connected-react-router/immutable';
-import { ReduxProvider as Provider } from './Containers';
+import { Provider } from 'react-redux';
 import Routes from './routes';
 import { store, history, reducer } from './Stores';
 import './index.css';
@@ -20,8 +20,6 @@ const renderAsync = () => {
   );
 };
 
-renderAsync();
-
 if (module.hot) {
   module.hot.accept('./index.js');
   module.hot.accept('./routes', () => {
@@ -31,3 +29,5 @@ if (module.hot) {
     store.replaceReducer(connectRouter(history)(reducer));
   });
 }
+
+renderAsync();
