@@ -5,7 +5,7 @@ import createHistory from 'history/createBrowserHistory';
 import Immutable from 'immutable';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import * as reducers from '../Reducers';
+import * as reducers from './Reducers';
 
 export const history = createHistory();
 export const reducer = combineReducers({
@@ -29,7 +29,7 @@ const composeDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
     immutable: Immutable,
   },
 });
-export const store = process.env.NODE_ENV === 'production' ? createStore(
+const store = process.env.NODE_ENV === 'production' ? createStore(
   connectRouter(history)(reducer),
   initialState,
   compose(
@@ -49,3 +49,5 @@ export const store = process.env.NODE_ENV === 'production' ? createStore(
     ),
   ),
 );
+
+export default store;

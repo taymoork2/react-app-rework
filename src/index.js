@@ -5,7 +5,7 @@ import { withAsyncComponents } from 'react-async-component';
 import { connectRouter } from 'connected-react-router/immutable';
 import { Provider } from 'react-redux';
 import Routes from './routes';
-import { store, history, reducer } from './Stores';
+import store, { history, reducer } from './store';
 import './index.css';
 
 const renderAsync = () => {

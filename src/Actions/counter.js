@@ -10,8 +10,10 @@ export const reset = () => ({
   type: 'RESET',
 });
 
-export const incrementAsync = (dispatch) => {
-  setTimeout(() => {
-    dispatch(increment());
-  }, 1000);
-};
+export function incrementAsync() {
+  return (dispatch) => {
+    setTimeout(() => {
+      dispatch(increment());
+    }, 1000);
+  };
+}
