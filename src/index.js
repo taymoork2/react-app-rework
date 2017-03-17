@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { withAsyncComponents } from 'react-async-component';
 import { connectRouter } from 'connected-react-router/immutable';
 import { Provider } from 'react-redux';
 import Routes from './routes';
@@ -9,14 +8,13 @@ import store, { history, reducer } from './store';
 import './index.css';
 
 const renderAsync = () => {
-  withAsyncComponents((
+  render(
     <AppContainer>
       <Provider store={store}>
         <Routes history={history} />
       </Provider>
-    </AppContainer>
-  )).then(({ appWithAsyncComponents }) =>
-    render(appWithAsyncComponents, document.getElementById('root')),
+    </AppContainer>,
+    document.getElementById('root'),
   );
 };
 

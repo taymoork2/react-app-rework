@@ -3,7 +3,8 @@ import React, { PropTypes } from 'react';
 import Helmet from 'react-helmet';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router/immutable';
-import { createAsyncComponent } from 'react-async-component';
+import Loadable from 'react-loadable';
+import Loading from 'react-loading';
 import { Layout } from './Containers';
 
 export const routes = [
@@ -12,25 +13,28 @@ export const routes = [
     navBarTitle: 'Get Started',
     path: `${process.env.PUBLIC_URL}/`,
     exact: true,
-    component: createAsyncComponent({
-      resolve: () => import('./Components/App'),
+    component: Loadable({
+      loader: () => import('./Components/App'),
+      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
     }),
   },
   {
     title: 'Counter',
     navBarTitle: 'Counter Example',
     path: `${process.env.PUBLIC_URL}/counter`,
-    component: createAsyncComponent({
-      resolve: () => import('./Containers/Counter'),
+    component: Loadable({
+      loader: () => import('./Containers/Counter'),
+      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
     }),
   },
-  {
+  /* {
     navBarTitle: 'Dashboard Example',
     path: `${process.env.PUBLIC_URL}/dashboard/:id?`,
-    component: createAsyncComponent({
-      resolve: () => import('./Containers/Dashboard'),
+    component: Loadable({
+      loader: () => import('./Containers/Dashboard'),
+      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
     }),
-  },
+  },*/
 ];
 
 const Match = route => (
