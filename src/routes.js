@@ -27,14 +27,14 @@ export const routes = [
       LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
     }),
   },
-  /* {
+  {
     navBarTitle: 'Dashboard Example',
     path: `${process.env.PUBLIC_URL}/dashboard/:id?`,
     component: Loadable({
       loader: () => import('./Containers/Dashboard'),
       LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
     }),
-  },*/
+  },
 ];
 
 const Match = route => (
