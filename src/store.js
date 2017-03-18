@@ -25,30 +25,33 @@ const logger = createLogger({
   },
 });
 // eslint-disable-next-line no-underscore-dangle
-const composeDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-  serialize: {
-    immutable: Immutable,
-  },
-});
-const store = process.env.NODE_ENV === 'production' ? createStore(
-  connectRouter(history)(reducer),
-  initialState,
-  compose(
-    applyMiddleware(
-      thunk,
-      connectedMiddleware,
+const composeDev = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ // eslint-disable-line no-underscore-dangle
+    serialize: {
+      immutable: Immutable,
+    },
+  }) : compose;
+
+const store = process.env.NODE_ENV === 'production' ?
+  createStore(
+    connectRouter(history)(reducer),
+    initialState,
+    compose(
+      applyMiddleware(
+        thunk,
+        connectedMiddleware,
+      ),
     ),
-  ),
-) : createStore(
-  connectRouter(history)(reducer),
-  initialState,
-  composeDevTools(
-    applyMiddleware(
-      thunk,
-      connectedMiddleware,
-      logger,
+  ) : createStore(
+    connectRouter(history)(reducer),
+    initialState,
+    composeDev(
+      applyMiddleware(
+        thunk,
+        connectedMiddleware,
+        logger,
+      ),
     ),
-  ),
-);
+  );
 
 export default store;

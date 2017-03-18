@@ -17,9 +17,14 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     app: [
-      'react-hot-loader/patch',
+      // Note: instead of the default WebpackDevServer client, we use a custom one
+      // to bring better experience for Create React App users. You can replace
+      // the line below with these two lines if you prefer the stock client:
+      // require.resolve('webpack-dev-server/client') + '?/',
+      // require.resolve('webpack/hot/dev-server'),
       require.resolve('react-dev-utils/webpackHotDevClient'),
       require.resolve('./utils/polyfills'),
+      // require.resolve('react-dev-utils/crashOverlay'),
       paths.appIndexJs
     ],
     vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-loadable', 'react-helmet', 'react-router', 'react-router-dom', 'connected-react-router', 'history', 'redux-thunk', 'redux-persist']
@@ -37,17 +42,25 @@ module.exports = {
       'react-native': 'react-native-web'
     }
   },
-  resolveLoader: {
-    modules: [
-      paths.ownNodeModules
-    ]
-  },
   module: {
     rules: [
       {
+        parser: {
+          requireEnsure: false
+        }
+      },
+      {
         test: /\.(js|jsx)$/,
         enforce: 'pre',
-        loader: 'eslint-loader',
+        use: [
+          {
+            loader: 'eslint-loader',
+            options: {
+              configFile: './.eslintrc',
+              useEslintrc: false
+            }
+          }
+        ],
         include: paths.appSrc
       },
       {
@@ -55,62 +68,115 @@ module.exports = {
           /\.html$/,
           /\.(js|jsx)$/,
           /\.css$/,
+          /\.scss$/,
+          /\.less$/,
           /\.json$/,
           /\.svg$/,
           /\.graphql$/,
           /\.gql$/
         ],
-        loader: 'url-loader',
-        query: {
-          limit: 10000,
-          name: 'assets/media/[name].[hash:8].[ext]'
-        }
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'assets/media/[name].[hash:8].[ext]'
+          }
+        }]
       },
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel-loader',
-        query: {
-          cacheDirectory: true
-        }
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }]
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?importLoaders=1!postcss-loader'
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: function() {
+                return [
+                  autoprefixer({
+                    browsers: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9' // React doesn't support IE8 anyway
+                    ]
+                  })
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            }
+          },
+          {
+            loader: 'less-loader'
+          }
+        ]
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        loader: 'file-loader',
-        query: {
-          name: 'assets/media/[name].[hash:8].[ext]'
-        }
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/media/[name].[hash:8].[ext]'
+            }
+          }
+        ]
       }
+      // ** STOP ** Are you adding a new loader?
+      // Remember to add the new extension(s) to the "url" loader exclusion list
     ]
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          configFile: './.eslintrc',
-          useEslintrc: false
-        },
-        postcss: function() {
-          return [
-            autoprefixer({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9',
-              ]
-            }),
-          ];
-        }
-      }
-    }),
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: publicUrl
-    }),
+    new DashboardPlugin(),
+    new InterpolateHtmlPlugin(env.raw),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -130,8 +196,7 @@ module.exports = {
         open: false
       }
     ),
-    new DashboardPlugin(),
-    new webpack.DefinePlugin(env),
+    new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new CaseSensitivePathsPlugin(),

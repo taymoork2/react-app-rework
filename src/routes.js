@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import React, { PropTypes } from 'react';
-import Helmet from 'react-helmet';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router/immutable';
+import Helmet from 'react-helmet';
 import Loadable from 'react-loadable';
 import Loading from 'react-loading';
 import { Layout } from './Containers';

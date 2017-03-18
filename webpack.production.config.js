@@ -1,17 +1,17 @@
-var autoprefixer = require('autoprefixer');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var ManifestPlugin = require('webpack-manifest-plugin');
-var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-var ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
-var SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
-var url = require('url');
-var paths = require('./utils/paths');
-var getClientEnvironment = require('./utils/env');
+const autoprefixer = require('autoprefixer');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
+const SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
+const url = require('url');
+const paths = require('./utils/paths');
+const getClientEnvironment = require('./utils/env');
 
 function ensureSlash(path, needsSlash) {
-  var hasSlash = path.endsWith('/');
+  const hasSlash = path.endsWith('/');
   if (hasSlash && !needsSlash) {
     return path.substr(path, path.length - 1);
   } else if (!hasSlash && needsSlash) {
@@ -21,15 +21,21 @@ function ensureSlash(path, needsSlash) {
   }
 }
 
-var homepagePath = require(paths.appPackageJson).homepage;
-var homepagePathname = homepagePath ? url.parse(homepagePath).pathname : '/';
-var publicPath = ensureSlash(homepagePathname, true);
-var publicUrl = ensureSlash(homepagePathname, false);
-var env = getClientEnvironment(publicUrl);
+const homepagePath = require(paths.appPackageJson).homepage;
+const homepagePathname = homepagePath ? url.parse(homepagePath).pathname : '/';
+const publicPath = ensureSlash(homepagePathname, true);
+const shouldUseRelativeAssetPaths = publicPath === './';
+const publicUrl = ensureSlash(homepagePathname, false);
+const env = getClientEnvironment(publicUrl);
 
-if (env['process.env'].NODE_ENV !== '"production"') {
+if (env.stringified['process.env'].NODE_ENV !== '"production"') {
   throw new Error('Production builds must have NODE_ENV=production.');
 }
+
+const cssFilename = 'assets/css/[name].[contenthash:8].css';
+const extractTextPluginOptions = shouldUseRelativeAssetPaths ?
+    { publicPath: Array(cssFilename.split('/').length).join('../') }
+  : {};
 
 module.exports = {
   bail: true,
@@ -43,7 +49,8 @@ module.exports = {
   },
   output: {
     path: paths.appBuild,
-    filename: 'assets/js/[name].[hash:8].js',
+    filename: 'assets/js/[name].[chunkhash:8].js',
+    chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
     publicPath: publicPath,
     crossOriginLoading: 'anonymous'
   },
@@ -57,9 +64,20 @@ module.exports = {
   module: {
     rules: [
       {
+        parser: {
+          requireEnsure: false
+        }
+      },
+      {
         test: /\.(js|jsx)$/,
         enforce: 'pre',
-        loader: 'eslint-loader',
+        use: [{
+          loader: 'eslint-loader',
+          options: {
+            configFile: './.eslintrc',
+            useEslintrc: false
+          }
+        }],
         include: paths.appSrc
       },
       {
@@ -67,62 +85,116 @@ module.exports = {
           /\.html$/,
           /\.(js|jsx)$/,
           /\.css$/,
+          /\.scss$/,
+          /\.less$/,
           /\.json$/,
           /\.svg$/,
           /\.graphql$/,
           /\.gql$/
         ],
-        loader: 'url-loader',
-        query: {
-          limit: 10000,
-          name: 'assets/media/[name].[hash:8].[ext]'
-        }
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'assets/media/[name].[hash:8].[ext]'
+            }
+          }
+        ]
       },
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel-loader'
+        use: 'babel-loader'
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader?importLoaders=1!postcss-loader'
+        use: ExtractTextPlugin.extract({
+          Object.assign({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1
+                }
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  ident: 'postcss',
+                  plugins: function() {
+                    return [
+                      autoprefixer({
+                        browsers: [
+                          '>1%',
+                          'last 4 versions',
+                          'Firefox ESR',
+                          'not ie < 9' // React doesn't support IE8 anyway
+                        ]
+                      })
+                    ]
+                  }
+                }
+              }
+            ]
+          }, extractTextPluginOptions)
+        })
+      },
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          Object.assign({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1
+                }
+              },
+              {
+                loader: 'sass-loader'
+              }
+            ]
+          }, extractTextPluginOptions)
+        })
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          Object.assign({
+            fallback: 'style-loader',
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  importLoaders: 1
+                }
+              },
+              {
+                loader: 'less-loader'
+              }
+            ]
+          }, extractTextPluginOptions)
         })
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
-        loader: 'file-loader',
-        query: {
-          name: 'assets/media/[name].[hash:8].[ext]'
-        }
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: 'assets/media/[name].[hash:8].[ext]'
+          }
+        }]
       }
     ]
+    // ** STOP ** Are you adding a new loader?
+    // Remember to add the new extension(s) to the "url" loader exclusion list
+
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          configFile: './.eslintrc',
-          useEslintrc: false
-        },
-        postcss: function() {
-          return [
-            autoprefixer({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9',
-              ]
-            }),
-          ];
-        }
-      }
-    }),
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: publicUrl
-    }),
+    new InterpolateHtmlPlugin(env.raw),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
@@ -139,7 +211,7 @@ module.exports = {
         minifyURLs: true
       }
     }),
-    new webpack.DefinePlugin(env),
+    new webpack.DefinePlugin(env.stringified),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
@@ -153,7 +225,8 @@ module.exports = {
       output: {
         comments: false,
         screw_ie8: true
-      }
+      },
+      sourcemap: true
     }),
     new ExtractTextPlugin({
       filename: 'assets/css/[name].[contenthash:8].css',
@@ -171,7 +244,7 @@ module.exports = {
     }),
     new ResourceHintWebpackPlugin(),
     new ManifestPlugin({
-      fileName: 'assets/asset-manifest.json'
+      fileName: 'asset-manifest.json'
     })
   ],
   node: {
