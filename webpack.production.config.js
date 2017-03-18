@@ -109,7 +109,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract(
           Object.assign({
             fallback: 'style-loader',
             use: [
@@ -139,11 +139,11 @@ module.exports = {
               }
             ]
           }, extractTextPluginOptions)
-        })
+        )
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract(
           Object.assign({
             fallback: 'style-loader',
             use: [
@@ -158,11 +158,11 @@ module.exports = {
               }
             ]
           }, extractTextPluginOptions)
-        })
+        )
       },
       {
         test: /\.less$/,
-        use: ExtractTextPlugin.extract({
+        use: ExtractTextPlugin.extract(
           Object.assign({
             fallback: 'style-loader',
             use: [
@@ -177,7 +177,7 @@ module.exports = {
               }
             ]
           }, extractTextPluginOptions)
-        })
+        )
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
