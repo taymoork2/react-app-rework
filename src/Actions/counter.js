@@ -1,15 +1,19 @@
+let interval;
+
 export const increment = () => ({ type: 'INCREMENT' });
+
+export const asyncIncrement = () => ({ type: 'INCREMENT_ASYNC' });
 
 export const decrement = () => ({ type: 'DECREMENT' });
 
 export const reset = () => ({ type: 'RESET' });
 
-export const pause = () => ({ type: 'PAUSE' });
+export const pause = () => {
+  clearInterval(interval);
+  return ({ type: 'PAUSE' });
+};
 
-export function incrementAsync() {
-  return (dispatch) => {
-    setInterval(() => {
-      dispatch(increment());
-    }, 1000);
-  };
-}
+export const incrementAsync = () => (dispatch) => {
+  interval = setInterval(() => dispatch(asyncIncrement()), 1000);
+};
+

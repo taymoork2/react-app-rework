@@ -43,7 +43,7 @@ module.exports = {
   entry: {
     app: [
       require.resolve('./utils/polyfills'),
-      paths.appIndexJs
+      paths.appIndexJs,
     ],
     vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-loadable', 'react-helmet', 'react-router', 'react-router-dom', 'connected-react-router', 'history', 'redux-thunk', 'redux-persist']
   },
@@ -52,21 +52,21 @@ module.exports = {
     filename: 'assets/js/[name].[chunkhash:8].js',
     chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
     publicPath: publicPath,
-    crossOriginLoading: 'anonymous'
+    crossOriginLoading: 'anonymous',
   },
   resolve: {
     modules: ['node_modules'].concat(paths.nodePaths),
     extensions: ['.js', '.json', '.jsx'],
     alias: {
-      'react-native': 'react-native-web'
-    }
+      'react-native': 'react-native-web',
+    },
   },
   module: {
     rules: [
       {
         parser: {
-          requireEnsure: false
-        }
+          requireEnsure: false,
+        },
       },
       {
         test: /\.(js|jsx)$/,
@@ -75,10 +75,10 @@ module.exports = {
           loader: 'eslint-loader',
           options: {
             configFile: './.eslintrc',
-            useEslintrc: false
-          }
+            useEslintrc: false,
+          },
         }],
-        include: paths.appSrc
+        include: paths.appSrc,
       },
       {
         exclude: [
@@ -90,22 +90,22 @@ module.exports = {
           /\.json$/,
           /\.svg$/,
           /\.graphql$/,
-          /\.gql$/
+          /\.gql$/,
         ],
         use: [
           {
             loader: 'url-loader',
             options: {
               limit: 10000,
-              name: 'assets/media/[name].[hash:8].[ext]'
-            }
-          }
+              name: 'assets/media/[name].[hash:8].[ext]',
+            },
+          },
         ]
       },
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        use: 'babel-loader'
+        use: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -116,30 +116,28 @@ module.exports = {
               {
                 loader: 'css-loader',
                 options: {
-                  importLoaders: 1
-                }
+                  importLoaders: 1,
+                },
               },
               {
                 loader: 'postcss-loader',
                 options: {
                   ident: 'postcss',
-                  plugins: function() {
-                    return [
-                      autoprefixer({
-                        browsers: [
-                          '>1%',
-                          'last 4 versions',
-                          'Firefox ESR',
-                          'not ie < 9' // React doesn't support IE8 anyway
-                        ]
-                      })
-                    ]
-                  }
-                }
-              }
-            ]
-          }, extractTextPluginOptions)
-        )
+                  plugins: () => [
+                    autoprefixer({
+                      browsers: [
+                        '>1%',
+                        'last 4 versions',
+                        'Firefox ESR',
+                        'not ie < 9',
+                      ],
+                    }),
+                  ],
+                },
+              },
+            ],
+          }, extractTextPluginOptions),
+        ),
       },
       {
         test: /\.scss$/,
@@ -150,15 +148,15 @@ module.exports = {
               {
                 loader: 'css-loader',
                 options: {
-                  importLoaders: 1
-                }
+                  importLoaders: 1,
+                },
               },
               {
-                loader: 'sass-loader'
-              }
-            ]
-          }, extractTextPluginOptions)
-        )
+                loader: 'sass-loader',
+              },
+            ],
+          }, extractTextPluginOptions),
+        ),
       },
       {
         test: /\.less$/,
@@ -169,29 +167,28 @@ module.exports = {
               {
                 loader: 'css-loader',
                 options: {
-                  importLoaders: 1
-                }
+                  importLoaders: 1,
+                },
               },
               {
-                loader: 'less-loader'
-              }
+                loader: 'less-loader',
+              },
             ]
-          }, extractTextPluginOptions)
-        )
+          }, extractTextPluginOptions),
+        ),
       },
       {
         test: /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)(\?.*)?$/,
         use: [{
           loader: 'file-loader',
           options: {
-            name: 'assets/media/[name].[hash:8].[ext]'
-          }
-        }]
-      }
-    ]
+            name: 'assets/media/[name].[hash:8].[ext]',
+          },
+        }],
+      },
+    ],
     // ** STOP ** Are you adding a new loader?
     // Remember to add the new extension(s) to the "url" loader exclusion list
-
   },
   plugins: [
     new InterpolateHtmlPlugin(env.raw),
@@ -208,8 +205,8 @@ module.exports = {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     new webpack.DefinePlugin(env.stringified),
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -217,39 +214,39 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,
-        warnings: false
+        warnings: false,
       },
       mangle: {
-        screw_ie8: true
+        screw_ie8: true,
       },
       output: {
         comments: false,
-        screw_ie8: true
+        screw_ie8: true,
       },
-      sourcemap: true
+      sourcemap: true,
     }),
     new ExtractTextPlugin({
       filename: 'assets/css/[name].[contenthash:8].css',
       disable: false,
-      allChunks: true
+      allChunks: true,
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'manifest'],
       filename: 'assets/js/[name].[hash:8].js',
-      minChunks: Infinity
+      minChunks: Infinity,
     }),
     new SubresourceIntegrityPlugin({ // I'm getting integrity errors on my end
       hashFuncNames: ['sha256', 'sha384'],
-      enabled: false
+      enabled: false,
     }),
     new ResourceHintWebpackPlugin(),
     new ManifestPlugin({
-      fileName: 'asset-manifest.json'
-    })
+      fileName: 'asset-manifest.json',
+    }),
   ],
   node: {
     fs: 'empty',
     net: 'empty',
-    tls: 'empty'
-  }
+    tls: 'empty',
+  },
 };

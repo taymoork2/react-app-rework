@@ -14,7 +14,7 @@ export const reducer = combineReducers({
 const initialState = Immutable.Map();
 const connectedMiddleware = routerMiddleware(history);
 const logger = createLogger({
-  predicate: ((getState, action) => action.type !== 'INCREMENT'), // To stop console spam
+  predicate: ((getState, action) => action.type !== 'INCREMENT_ASYNC'), // To stop console spam
   stateTransformer: (state) => {
     const newState = Object.keys(state).map((i) => {
       if (Immutable.Iterable.isIterable(state[i])) return state[i].toJS();

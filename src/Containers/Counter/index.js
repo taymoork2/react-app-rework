@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { increment, decrement, reset, incrementAsync } from '../../Actions/counter';
+import { increment, decrement, reset, pause, incrementAsync } from '../../Actions/counter';
 // import { DisplayCount } from '../../Components';
 
 class Counter extends Component {
@@ -10,10 +10,15 @@ class Counter extends Component {
     onIncrement: PropTypes.func.isRequired,
     onDecrement: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,
+    initiatePause: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
     this.props.startIncrementAsync();
+  }
+
+  componentWillUnmount() {
+    this.props.initiatePause();
   }
 
   render() {
@@ -40,6 +45,7 @@ const mapDispatchToProps = dispatch => ({
   onIncrement: () => dispatch(increment()),
   onDecrement: () => dispatch(decrement()),
   onReset: () => dispatch(reset()),
+  initiatePause: () => dispatch(pause()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
