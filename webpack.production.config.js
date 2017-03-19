@@ -136,7 +136,7 @@ module.exports = {
                 },
               },
             ],
-          }, extractTextPluginOptions),
+          }, extractTextPluginOptions)
         ),
       },
       {
@@ -155,7 +155,7 @@ module.exports = {
                 loader: 'sass-loader',
               },
             ],
-          }, extractTextPluginOptions),
+          }, extractTextPluginOptions)
         ),
       },
       {
@@ -174,7 +174,7 @@ module.exports = {
                 loader: 'less-loader',
               },
             ]
-          }, extractTextPluginOptions),
+          }, extractTextPluginOptions)
         ),
       },
       {
