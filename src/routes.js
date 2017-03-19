@@ -1,7 +1,8 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { createAsyncComponent } from 'react-async-component';
+import Loadable from 'react-loadable';
+import Loading from 'react-loading';
 import { createBrowserHistory } from 'history';
 import { Layout } from './Containers';
 
@@ -13,16 +14,18 @@ export const routes = [
     navBarTitle: 'Get Started',
     path: `${process.env.PUBLIC_URL}/`,
     exact: true,
-    component: createAsyncComponent({
-      resolve: () => import('./Components/App'),
+    component: Loadable({
+      loader: () => import('./Components/App'),
+      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
     }),
   },
   {
     title: 'Counter',
     navBarTitle: 'Counter Example',
     path: `${process.env.PUBLIC_URL}/counter`,
-    component: createAsyncComponent({
-      resolve: () => import('./Components/Counter'),
+    component: Loadable({
+      loader: () => import('./Components/Counter'),
+      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
     }),
   },
 ];
