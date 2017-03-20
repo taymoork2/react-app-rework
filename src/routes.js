@@ -55,7 +55,7 @@ const Match = route => (
 
 const Routes = ({ history }) => (
   <Router history={history}>
-    <Layout>
+    <Layout routes={routes}>
       <Switch>
         {routes.map((route, i) => <Match key={i} {...route} />)}
         <Route path="*" component={() => <Redirect to="/" />} />

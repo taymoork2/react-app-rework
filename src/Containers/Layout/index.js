@@ -6,7 +6,7 @@ import './assets/Layout.css';
 
 // This is an example of a stateless function [Redux]
 // All it does is take in props and displays them (no manipulations of data)
-const Layout = ({ children }) => (
+const Layout = ({ children, routes }) => (
   <div className="App">
     <Helmet
       title=""
@@ -15,7 +15,7 @@ const Layout = ({ children }) => (
     <header>
       <img src={logo} className="logo" alt="logo" />
       <h1>Welcome to React+Redux</h1>
-      <Navbar />
+      <Navbar routes={routes} />
     </header>
     <div className="main">
       { children }
@@ -27,6 +27,8 @@ const Layout = ({ children }) => (
 // ESlint format says otherwise (but even they say it's not a hard rule to follow)
 Layout.propTypes = {
   children: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  // eslint-disable-next-line react/forbid-prop-types, react/require-default-props
+  routes: PropTypes.array,
 };
 
 export default Layout;
