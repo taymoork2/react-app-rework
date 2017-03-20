@@ -5,6 +5,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
+const BitBarWebpackProgressPlugin = require("bitbar-webpack-progress-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const getClientEnvironment = require('./utils/env');
@@ -201,6 +202,7 @@ module.exports = {
     new CaseSensitivePathsPlugin(),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     new FlowStatusWebpackPlugin(),
+    new BitBarWebpackProgressPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'manifest'],
       filename: 'assets/js/[name].js',

@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
 const url = require('url');
@@ -240,6 +241,7 @@ module.exports = {
       enabled: false,
     }),
     new ResourceHintWebpackPlugin(),
+    new BitBarWebpackProgressPlugin(),
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
     }),
