@@ -16,4 +16,3 @@ export const pause = () => {
 export const incrementAsync = () => (dispatch) => {
   interval = setInterval(() => dispatch(asyncIncrement()), 1000);
 };
-
