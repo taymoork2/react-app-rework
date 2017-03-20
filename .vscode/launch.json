@@ -4,11 +4,17 @@
     {
       "name": "Chrome",
       "type": "chrome",
-      "request": "attach",
-      "port": 9222,
-      "url": "http://localhost:3000",
+      "request": "launch",
       "webRoot": "${workspaceRoot}/src",
-      // "userDataDir": "${workspaceRoot}/.chrome",
+      "url": "http://localhost:3001",
+      "userDataDir": "${workspaceRoot}/.vscode/chrome",
+      "sourceMaps": true,
+      // "preLaunchTask": "development",
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "skipFiles": [
+        "node_modules/**"
+      ],
       "sourceMapPathOverrides": {
         "webpack:///src/*": "${webRoot}/*"
       }
