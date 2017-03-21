@@ -5,7 +5,7 @@ import VisibleTodoList from './VisibleTodoList';
 import UndoRedo from './UndoRedo';
 
 const Todos = () => (
-  <div>
+  <div style={{ marginTop: '1em' }}>
     <AddTodo />
     <VisibleTodoList />
     <Footer />

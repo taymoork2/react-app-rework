@@ -5,7 +5,7 @@ import logo from './assets/logo.svg';
 import './assets/Layout.css';
 
 // This is an example of a stateless function [Redux]
-// All it does is take in props and displays them (no manipulations of data)
+// All it does is take in props and displays them (no manipulation of data)
 const Layout = ({ children, routes }) => (
   <div className="App">
     <Helmet
@@ -23,12 +23,9 @@ const Layout = ({ children, routes }) => (
   </div>
 );
 
-// It is disabled on this file because object is the correct type
-// ESlint format says otherwise (but even they say it's not a hard rule to follow)
 Layout.propTypes = {
-  children: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  // eslint-disable-next-line react/forbid-prop-types, react/require-default-props
-  routes: PropTypes.array,
+  children: PropTypes.element.isRequired,
+  routes: PropTypes.arrayOf(PropTypes.shape), // eslint-disable-line react/require-default-props
 };
 
 export default Layout;

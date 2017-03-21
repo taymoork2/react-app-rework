@@ -14,8 +14,8 @@ const UndoRedo = ({ canUndo, canRedo, onUndo, onRedo }) => (
 );
 
 UndoRedo.propTypes = {
-  canUndo: PropTypes.func.isRequired,
-  canRedo: PropTypes.func.isRequired,
+  canUndo: PropTypes.bool.isRequired,
+  canRedo: PropTypes.bool.isRequired,
   onUndo: PropTypes.func.isRequired,
   onRedo: PropTypes.func.isRequired,
 };

@@ -75,7 +75,7 @@ const Routes = ({ history }) => (
 );
 
 Routes.propTypes = {
-  history: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  history: PropTypes.shape().isRequired,
 };
 
 export default Routes;

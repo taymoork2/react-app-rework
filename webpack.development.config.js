@@ -5,11 +5,12 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-const BitBarWebpackProgressPlugin = require("bitbar-webpack-progress-plugin");
+const BitBarWebpackProgressPlugin = require('bitbar-webpack-progress-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const getClientEnvironment = require('./utils/env');
 const paths = require('./utils/paths');
+
 const publicPath = '/';
 const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
@@ -29,13 +30,25 @@ module.exports = {
       // require.resolve('react-dev-utils/crashOverlay'),
       paths.appIndexJs,
     ],
-    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-helmet', 'react-router', 'react-router-dom', 'connected-react-router', 'history', 'redux-thunk', 'react-loadable', 'react-loading', 'redux-persist'],
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router',
+      'react-router-dom',
+      'redux',
+      'react-redux',
+      'redux-thunk',
+      'redux-immutable',
+      'immutable',
+      'connected-react-router',
+      'redux-logger',
+    ],
   },
   output: {
     path: paths.appBuild,
     pathinfo: true,
     filename: 'assets/js/[name].js',
-    publicPath: publicPath,
+    publicPath,
   },
   resolve: {
     modules: ['node_modules'].concat(paths.nodePaths),

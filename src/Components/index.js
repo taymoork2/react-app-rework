@@ -2,7 +2,7 @@
 export App from './App';
 
 // Counter
-export DisplayCount from './Counter/DisplayCount';
+export Counter from './Counter';
 
 // Dashboard
 export UserDetails from './Dashboard/UserDetails';

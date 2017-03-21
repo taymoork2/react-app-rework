@@ -5,7 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const BitBarWebpackProgressPlugin = require("bitbar-webpack-progress-plugin");
+const BitBarWebpackProgressPlugin = require('bitbar-webpack-progress-plugin');
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
 const url = require('url');
@@ -47,13 +47,24 @@ module.exports = {
       require.resolve('./utils/polyfills'),
       paths.appIndexJs,
     ],
-    vendor: ['react', 'react-dom', 'redux', 'react-redux', 'react-helmet', 'react-router', 'react-router-dom', 'connected-react-router', 'history', 'redux-thunk', 'react-loadable', 'react-loading', 'redux-persist'],
+    vendor: [
+      'react',
+      'react-dom',
+      'react-router',
+      'react-router-dom',
+      'redux',
+      'react-redux',
+      'redux-thunk',
+      'redux-immutable',
+      'immutable',
+      'connected-react-router',
+    ],
   },
   output: {
     path: paths.appBuild,
     filename: 'assets/js/[name].[chunkhash:8].js',
     chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
-    publicPath: publicPath,
+    publicPath,
     crossOriginLoading: 'anonymous',
   },
   resolve: {
