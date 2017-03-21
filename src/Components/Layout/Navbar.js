@@ -12,8 +12,8 @@ const Navbar = ({ routes }) => (
 );
 
 Navbar.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types, react/require-default-props
-  routes: PropTypes.array,
+  routes: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
+
 };
 
 export default Navbar;

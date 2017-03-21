@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { increment, decrement, reset, pause, incrementAsync } from '../../Actions/counter';
+import { increment, decrement, reset, pause, incrementAsync } from '../../Actions/Counter';
 // import { DisplayCount } from '../../Components';
 
 class Counter extends Component {
@@ -31,6 +31,12 @@ class Counter extends Component {
         <button onClick={onIncrement}>+</button>
         <button onClick={onDecrement}>-</button>
         <button onClick={onReset}>Reset</button>
+        {/* <DisplayCount
+          count={count.count}
+          onIncrement={onIncrement}
+          onDecrement={onDecrement}
+          onReset={onReset}
+        />*/}
       </div>
     );
   }

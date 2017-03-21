@@ -28,6 +28,16 @@ export const routes = [
     }),
   },
   {
+    title: 'Todos',
+    navBarTitle: 'Todos Example',
+    path: `${process.env.PUBLIC_URL}/todo/:id?`,
+    component: Loadable({
+      loader: () => import('./Containers/Todos'),
+      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
+    }),
+  },
+  {
+    title: 'Dashboard',
     navBarTitle: 'Dashboard Example',
     path: `${process.env.PUBLIC_URL}/dashboard/:id?`,
     component: Loadable({

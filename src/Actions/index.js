@@ -1,3 +1,4 @@
-import * as counter from './counter';
+import * as Counter from './Counter';
+import * as Todos from './Todos';
 
-export default { counter };
+export default { Counter, Todos };
