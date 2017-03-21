@@ -5,6 +5,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const BitBarWebpackProgressPlugin = require("bitbar-webpack-progress-plugin");
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const SubresourceIntegrityPlugin = require('webpack-subresource-integrity');
 const url = require('url');
