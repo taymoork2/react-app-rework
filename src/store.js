@@ -4,7 +4,7 @@ import { combineReducers } from 'redux-immutable';
 import createHistory from 'history/createBrowserHistory';
 import Immutable from 'immutable';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import * as reducers from './Reducers';
 
 export const history = createHistory();
