@@ -51,10 +51,12 @@
     "enzyme": "^2.7.1",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-prettier": "^1.5.0",
     "eslint-loader": "^1.7.0",
     "eslint-plugin-flowtype": "^2.30.4",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-you-dont-need-lodash-underscore": "^5.0.4",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -67,11 +69,14 @@
     "gzip-size": "^3.0.0",
     "html-webpack-plugin": "^2.28.0",
     "http-proxy-middleware": "^0.17.4",
+    "husky": "^0.13.3",
     "jest": "^19.0.2",
     "json-loader": "^0.5.4",
+    "lint-staged": "^3.4.0",
     "object-assign": "^4.1.1",
     "path-exists": "^3.0.0",
     "postcss-loader": "^1.3.3",
+    "prettier": "^0.22.0",
     "promise": "^7.1.1",
     "react-addons-perf": "^15.4.2",
     "react-dev-utils": "^0.5.2",
@@ -116,12 +121,20 @@
     "todomvc-app-css": "^2.1.0"
   },
   "scripts": {
-    "start": "node utils/start.js",
     "build": "node utils/build.js",
-    "test": "node utils/test.js --env=jsdom",
-    "lint": "eslint src",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "gh-pages-deploy": "gh-pages -d dist"
+    "gh-pages-deploy": "gh-pages -d dist",
+    "lint": "eslint src",
+    "precommit": "lint-staged",
+    "pretty": "prettier --trailing-comma es5 --single-quote --write 'src/**/*.js'",
+    "start": "node utils/start.js",
+    "test": "node utils/test.js --env=jsdom"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "git add"
+    ]
   },
   "jest": {
     "collectCoverageFrom": [

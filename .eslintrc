@@ -22,6 +22,10 @@
     }
   },
   "rules": {
+    "prettier/prettier": [{
+      "trailingComma": true,
+      "singleQuote": true
+    }],
     "quotes": [2, "single"],
     "strict": [2, "never"],
     "react/jsx-uses-react": 2,
@@ -30,8 +34,9 @@
     "react/jsx-filename-extension": 0
   },
   "plugins": [
-    "react",
-    "flowtype",
+    "prettier",
+    "prettier/flowtype",
+    "prettier/react",
     "you-dont-need-lodash-underscore"
   ]
 }
