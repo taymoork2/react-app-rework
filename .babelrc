@@ -1,7 +1,6 @@
 {
   "presets": [
-    "env",
-    [
+    "env", [
       "latest",
       {
         "es2015": {
