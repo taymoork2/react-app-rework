@@ -7,6 +7,7 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const BitBarWebpackProgressPlugin = require('bitbar-webpack-progress-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const Dashboard = require('webpack-dashboard');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const getClientEnvironment = require('./utils/env');
 const paths = require('./utils/paths');
@@ -14,6 +15,7 @@ const paths = require('./utils/paths');
 const publicPath = '/';
 const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
+const dashboard = new Dashboard();
 
 module.exports = {
   devtool: 'cheap-module-source-map',
@@ -90,23 +92,27 @@ module.exports = {
           /\.graphql$/,
           /\.gql$/,
         ],
-        use: [{
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            name: 'assets/media/[name].[hash:8].[ext]',
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'assets/media/[name].[hash:8].[ext]',
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
           },
-        }],
+        ],
       },
       {
         test: /\.css$/,
@@ -188,7 +194,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new DashboardPlugin(),
+    new DashboardPlugin(dashboard.setData),
     new InterpolateHtmlPlugin(env.raw),
     new HtmlWebpackPlugin({
       inject: true,
