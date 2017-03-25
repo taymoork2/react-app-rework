@@ -8,17 +8,14 @@ import './assets/Layout.css';
 // All it does is take in props and displays them (no manipulation of data)
 const Layout = ({ children, routes }) => (
   <div className="App">
-    <Helmet
-      title=""
-      titleTemplate="Redux App | %s"
-    />
+    <Helmet title="" titleTemplate="Redux App | %s" />
     <header>
       <img src={logo} className="logo" alt="logo" />
       <h1>Welcome to React+Redux</h1>
       <Navbar routes={routes} />
     </header>
     <div className="main">
-      { children }
+      {children}
     </div>
   </div>
 );

@@ -10,9 +10,10 @@ export const reset = () => ({ type: 'RESET' });
 
 export const pause = () => {
   clearInterval(interval);
-  return ({ type: 'PAUSE' });
+  return { type: 'PAUSE' };
 };
 
-export const incrementAsync = () => (dispatch) => {
-  interval = setInterval(() => dispatch(asyncIncrement()), 1000);
-};
+export const incrementAsync = () =>
+  dispatch => {
+    interval = setInterval(() => dispatch(asyncIncrement()), 1000);
+  };

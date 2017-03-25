@@ -6,7 +6,17 @@ import './assets/Navbar.css';
 const Navbar = ({ routes }) => (
   <nav>
     <ul>
-      {routes.filter(route => route.navBarTitle).map((route, i) => <li key={i}><NavLink to={route.path.match(/^[^:]+/)[0]} exact={route.exact} activeStyle={{ borderBottom: '2px solid #fff' }}><b>{route.navBarTitle}</b></NavLink></li>)}
+      {routes.filter(route => route.navBarTitle).map((route, i) => (
+        <li key={i}>
+          <NavLink
+            to={route.path.match(/^[^:]+/)[0]}
+            exact={route.exact}
+            activeStyle={{ borderBottom: '2px solid #fff' }}
+          >
+            <b>{route.navBarTitle}</b>
+          </NavLink>
+        </li>
+      ))}
     </ul>
   </nav>
 );

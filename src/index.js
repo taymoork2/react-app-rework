@@ -14,7 +14,7 @@ const renderAsync = () => {
         <Routes history={history} />
       </Provider>
     </AppContainer>,
-    document.getElementById('root'),
+    document.getElementById('root')
   );
 };
 

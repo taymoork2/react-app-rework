@@ -25,10 +25,9 @@ const mapStateToProps = state => ({
   canRedo: state.getIn(['Todos']).future.length > 0,
 });
 
-const mapDispatchToProps = ({
+const mapDispatchToProps = {
   onUndo: UndoActionCreators.undo,
   onRedo: UndoActionCreators.redo,
-});
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UndoRedo);
-

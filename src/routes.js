@@ -7,6 +7,8 @@ import Loadable from 'react-loadable';
 import Loading from 'react-loading';
 import { Layout } from './Containers';
 
+const LoadingComponent = () => <Loading type="balls" color="#61dafb" />;
+
 export const routes = [
   {
     title: 'App',
@@ -15,7 +17,7 @@ export const routes = [
     exact: true,
     component: Loadable({
       loader: () => import('./Components/App'),
-      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
+      LoadingComponent,
     }),
   },
   {
@@ -24,7 +26,7 @@ export const routes = [
     path: `${process.env.PUBLIC_URL}/counter`,
     component: Loadable({
       loader: () => import('./Containers/Counter'),
-      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
+      LoadingComponent,
     }),
   },
   {
@@ -33,7 +35,7 @@ export const routes = [
     path: `${process.env.PUBLIC_URL}/todo/:id?`,
     component: Loadable({
       loader: () => import('./Containers/Todos'),
-      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
+      LoadingComponent,
     }),
   },
   {
@@ -42,7 +44,7 @@ export const routes = [
     path: `${process.env.PUBLIC_URL}/dashboard/:id?`,
     component: Loadable({
       loader: () => import('./Containers/Dashboard'),
-      LoadingComponent: () => <Loading type="balls" color="#61dafb" />,
+      LoadingComponent,
     }),
   },
 ];

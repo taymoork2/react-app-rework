@@ -126,7 +126,7 @@
     "gh-pages-deploy": "gh-pages -d dist",
     "lint": "eslint src",
     "precommit": "lint-staged",
-    "pretty": "prettier --trailing-comma es5 --single-quote --write 'src/**/*.js'",
+    "format": "prettier --trailing-comma es5 --single-quote --write '{src}/**/*.js'",
     "start": "node utils/start.js",
     "test": "node utils/test.js --env=jsdom"
   },

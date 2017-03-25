@@ -10,7 +10,7 @@ export default class Counter extends Component {
     onDecrement: PropTypes.func.isRequired,
     onReset: PropTypes.func.isRequired,
     initiatePause: PropTypes.func.isRequired,
-  }
+  };
 
   componentDidMount() {
     this.props.startIncrementAsync();
@@ -26,9 +26,13 @@ export default class Counter extends Component {
     return (
       <div className="Counter">
         <p style={{ fontSize: 'large' }}>To modify this component, edit:</p>
-        <code style={{ fontSize: 'larger' }}>src/Components/Counter/index.js</code>
+        <code style={{ fontSize: 'larger' }}>
+          src/Components/Counter/index.js
+        </code>
         <br />
-        <code style={{ fontSize: 'larger' }}>src/Containers/Counter/index.js</code>
+        <code style={{ fontSize: 'larger' }}>
+          src/Containers/Counter/index.js
+        </code>
         <p>and save to see the changes</p>
         <h4>Counter: {count.count}</h4>
         <button onClick={onIncrement}>+</button>
