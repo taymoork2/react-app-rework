@@ -1,8 +1,8 @@
 {
-  "app.css": "assets/css/app.87c47a7d.css",
-  "app.css.map": "assets/css/app.87c47a7d.css.map",
-  "app.js": "assets/js/app.e4667c34.js",
+  "app.css": "static/css/app.99b354f6.css",
+  "app.css.map": "static/css/app.99b354f6.css.map",
+  "app.js": "assets/js/app.1ce8a3be.js",
   "assets\\media\\logo.svg": "assets/media/logo.5d5d9eef.svg",
-  "manifest.js": "assets/js/manifest.e4667c34.js",
-  "vendor.js": "assets/js/vendor.e4667c34.js"
+  "manifest.js": "assets/js/manifest.1ce8a3be.js",
+  "vendor.js": "assets/js/vendor.1ce8a3be.js"
 }
