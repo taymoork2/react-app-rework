@@ -53,7 +53,7 @@ module.exports = {
     publicPath,
   },
   resolve: {
-    modules: ['node_modules'].concat(paths.nodePaths),
+    modules: ['node_modules', paths.appNodeModules].concat(paths.nodePaths),
     extensions: ['.js', '.json', '.jsx'],
     alias: {
       'react-native': 'react-native-web',
