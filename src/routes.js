@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router/immutable';
 import Helmet from 'react-helmet';
