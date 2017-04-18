@@ -43,21 +43,3 @@ export default class Counter extends Component {
     );
   }
 }
-
-/* export default function DisplayCount(count, onIncrement, onDecrement, onReset) {
-  return (
-    <div>
-      <h4>Counter: {count}</h4>
-      <button onClick={onIncrement}>+</button>
-      <button onClick={onDecrement}>-</button>
-      <button onClick={onReset}>Reset</button>
-    </div>
-  );
-}
-
-DisplayCount.propTypes = {
-  count: PropTypes.number.isRequired,
-  onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired,
-  onReset: PropTypes.func.isRequired,
-};*/
