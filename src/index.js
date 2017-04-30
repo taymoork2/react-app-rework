@@ -4,14 +4,14 @@ import { AppContainer } from 'react-hot-loader';
 import { connectRouter } from 'connected-react-router/immutable';
 import { Provider } from 'react-redux';
 import Routes from './routes';
-import store, { reducer } from './store';
+import store, { history, reducer } from './store';
 import './index.css';
 
 const renderAsync = () => {
   render(
     <AppContainer>
       <Provider store={store}>
-        <Routes />
+        <Routes history={history} />
       </Provider>
     </AppContainer>,
     document.getElementById('root')

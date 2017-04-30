@@ -1,12 +1,12 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router/immutable';
 import Helmet from 'react-helmet';
 import Loadable from 'react-loadable';
 import Loading from 'react-loading';
 import { Layout } from './Containers';
-import { history } from './store';
 
 const LoadingComponent = () => <Loading type="balls" color="#61dafb" />;
 
@@ -66,7 +66,7 @@ const Match = route => (
   </div>
 );
 
-const Routes = () => (
+const Routes = ({ history }) => (
   <Router history={history}>
     <Layout routes={routes}>
       <Switch>
@@ -76,5 +76,9 @@ const Routes = () => (
     </Layout>
   </Router>
 );
+
+Routes.propTypes = {
+  history: PropTypes.shape().isRequired,
+};
 
 export default Routes;
