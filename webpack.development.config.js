@@ -50,6 +50,7 @@ module.exports = {
     path: paths.appBuild,
     pathinfo: true,
     filename: 'assets/js/[name].js',
+    chunkFilename: 'assets/js/[name].chunk.js',
     publicPath,
   },
   resolve: {
