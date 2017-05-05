@@ -17,7 +17,7 @@ export const routes = [
     path: `${process.env.PUBLIC_URL}/`,
     exact: true,
     component: Loadable({
-      loader: () => import('./Components/App'),
+      loader: () => import(/* webpackChunkName: "Home" */ './Components/App'),
       LoadingComponent,
     }),
   },
@@ -26,7 +26,8 @@ export const routes = [
     navBarTitle: 'Counter Example',
     path: `${process.env.PUBLIC_URL}/counter`,
     component: Loadable({
-      loader: () => import('./Containers/Counter'),
+      loader: () =>
+        import(/* webpackChunkName: "Counter" */ './Containers/Counter'),
       LoadingComponent,
     }),
   },
@@ -35,7 +36,8 @@ export const routes = [
     navBarTitle: 'Todos Example',
     path: `${process.env.PUBLIC_URL}/todo/:id?`,
     component: Loadable({
-      loader: () => import('./Containers/Todos'),
+      loader: () =>
+        import(/* webpackChunkName: "Todos" */ './Containers/Todos'),
       LoadingComponent,
     }),
   },
@@ -44,7 +46,8 @@ export const routes = [
     navBarTitle: 'Dashboard Example',
     path: `${process.env.PUBLIC_URL}/dashboard/:id?`,
     component: Loadable({
-      loader: () => import('./Containers/Dashboard'),
+      loader: () =>
+        import(/* webpackChunkName: "Dashboard" */ './Containers/Dashboard'),
       LoadingComponent,
     }),
   },
