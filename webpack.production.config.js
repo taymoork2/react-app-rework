@@ -1,5 +1,6 @@
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
@@ -51,6 +52,8 @@ module.exports = {
     chunkFilename: 'assets/js/[name].[chunkhash:8].chunk.js',
     publicPath,
     crossOriginLoading: 'anonymous',
+    devtoolModuleFilenameTemplate: info =>
+      path.relative(paths.appSrc, info.absoluteResourcePath),
   },
   resolve: {
     modules: ['node_modules', paths.appNodeModules].concat(paths.nodePaths),
@@ -60,6 +63,7 @@ module.exports = {
     },
   },
   module: {
+    strictExportPresence: true,
     rules: [
       {
         parser: {
@@ -254,7 +258,6 @@ module.exports = {
       minChunks: Infinity,
     }),
     new SubresourceIntegrityPlugin({
-      // I'm getting integrity errors on my end
       hashFuncNames: ['sha256', 'sha384'],
       enabled: false,
     }),

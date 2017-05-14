@@ -1,5 +1,6 @@
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const FlowStatusWebpackPlugin = require('flow-status-webpack-plugin');
@@ -15,21 +16,18 @@ const paths = require('./utils/paths');
 const publicPath = '/';
 const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
-const dashboard = new Dashboard();
+// const dashboard = new Dashboard();
 
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     app: [
-      'react-hot-loader/patch',
-      // Note: instead of the default WebpackDevServer client, we use a custom one
-      // to bring better experience for Create React App users. You can replace
-      // the line below with these two lines if you prefer the stock client:
-      // require.resolve('webpack-dev-server/client') + '?/',
-      // require.resolve('webpack/hot/dev-server'),
-      require.resolve('react-dev-utils/webpackHotDevClient'),
+      require.resolve('react-hot-loader/patch'),
+      `${require.resolve('webpack-dev-server/client')}?/`,
+      require.resolve('webpack/hot/only-dev-server'),
+      // require.resolve('react-dev-utils/webpackHotDevClient'),
       require.resolve('./utils/polyfills'),
-      // require.resolve('react-dev-utils/crashOverlay'),
+      // require.resolve('react-error-overlay'),
       paths.appIndexJs,
     ],
     vendor: [
@@ -52,6 +50,8 @@ module.exports = {
     filename: 'assets/js/[name].js',
     chunkFilename: 'assets/js/[name].chunk.js',
     publicPath,
+    devtoolModuleFilenameTemplate: info =>
+      path.resolve(info.absoluteResourcePath),
   },
   resolve: {
     modules: ['node_modules', paths.appNodeModules].concat(paths.nodePaths),
@@ -61,6 +61,7 @@ module.exports = {
     },
   },
   module: {
+    strictExportPresence: true,
     rules: [
       {
         parser: {
@@ -195,7 +196,8 @@ module.exports = {
     ],
   },
   plugins: [
-    new DashboardPlugin(dashboard.setData),
+    new webpack.HotModuleReplacementPlugin(),
+    // new DashboardPlugin(dashboard.setData),
     new InterpolateHtmlPlugin(env.raw),
     new HtmlWebpackPlugin({
       inject: true,
@@ -217,7 +219,6 @@ module.exports = {
       }
     ),
     new webpack.DefinePlugin(env.stringified),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new CaseSensitivePathsPlugin(),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),

@@ -7,11 +7,11 @@ import Routes from './routes';
 import store, { history, reducer } from './store';
 import './index.css';
 
-const renderAsync = () => {
+const renderAsync = App => {
   render(
     <AppContainer>
       <Provider store={store}>
-        <Routes history={history} />
+        <App history={history} />
       </Provider>
     </AppContainer>,
     document.getElementById('root')
@@ -21,11 +21,11 @@ const renderAsync = () => {
 if (module.hot) {
   module.hot.accept('./index.js');
   module.hot.accept('./routes', () => {
-    renderAsync();
+    renderAsync(Routes);
   });
   module.hot.accept('./Reducers', () => {
     store.replaceReducer(connectRouter(history)(reducer));
   });
 }
 
-renderAsync();
+renderAsync(Routes);
