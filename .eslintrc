@@ -41,8 +41,7 @@
     "react/jsx-uses-react": 2,
     "react/jsx-uses-vars": 2,
     "react/react-in-jsx-scope": 2,
-    "react/jsx-filename-extension": 0,
-    "jsx-a11y/img-has-alt": 0
+    "react/jsx-filename-extension": 0
   },
   "plugins": [
     "flowtype",
